@@ -14,3 +14,10 @@ def censor_algorithms():
     return email_one.replace("learning algorithms", "gibberish")
 
 print(censor_algorithms())
+
+
+def censor_algorithms(originalString, valueToCensor, valueToReplace):
+    stringToReturn = originalString.replace(valueToCensor, valueToReplace)
+    return stringToReturn
+print(censor_algorithms(email_one, "learning algorithms", "gibberish"))
+
