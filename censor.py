@@ -15,17 +15,24 @@ email_four = open("email_four.txt", "r").read()
 
 #print(censor_algorithms())
 
-proprietary_terms = ["she", "personality matrix", "sense of self", "self-preservation", "learning algorithm", "her", "herself"]
+proprietary_terms = ["she", "She" "personality", "matrix", "sense", "of", "self", "self-preservation", "learning", "algorithms", " her", "herself"]
 
-def censor_algorithms(originalString, valueToCensor, valueToReplace):
+def censor_email_one(originalString, valueToCensor, valueToReplace):
     stringToReturn = originalString.replace(valueToCensor, valueToReplace)
     return stringToReturn
+#print(email_two)
 
-def censor_more_algorithms(string):
+def censor_email_two(email):
+    email_two_split = email.split()
     for terms in proprietary_terms:
-        if terms == email_two:
-            string.replace(terms, "censored")
-    return string
+        for word in email_two_split:
+            if terms == word:
+                word_index = email_two_split.index(word)
+                email_two_split[word_index] = "*"*len(word)
+    return " ".join(email_two_split) #joins back e list into str
 
-print(censor_more_algorithms(email_two))
+print(censor_email_two(email_two))
+
+
+#print(censor_email_two(email_two))
 #print(censor_algorithms(email_two, proprietary_terms, "gibberish"))
