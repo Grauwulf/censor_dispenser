@@ -10,14 +10,22 @@ email_four = open("email_four.txt", "r").read()
 
 #print(email_one)
 
-def censor_algorithms():
-    return email_one.replace("learning algorithms", "gibberish")
+#def censor_algorithms():
+    #return email_one.replace("learning algorithms", "gibberish")
 
-print(censor_algorithms())
+#print(censor_algorithms())
 
+proprietary_terms = ["she", "personality matrix", "sense of self", "self-preservation", "learning algorithm", "her", "herself"]
 
 def censor_algorithms(originalString, valueToCensor, valueToReplace):
     stringToReturn = originalString.replace(valueToCensor, valueToReplace)
     return stringToReturn
-print(censor_algorithms(email_one, "learning algorithms", "gibberish"))
 
+def censor_more_algorithms(string):
+    for terms in proprietary_terms:
+        if terms == email_two:
+            string.replace(terms, "censored")
+    return string
+
+print(censor_more_algorithms(email_two))
+#print(censor_algorithms(email_two, proprietary_terms, "gibberish"))
