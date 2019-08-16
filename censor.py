@@ -34,19 +34,19 @@ def censor_email_two(email):
 
 #print(censor_email_two(email_two))
 
-negative_words_repeated = []
-
 def censor_email_three(email):
-    negative_words_repeated = []
+    negative_words_repeated = {}
     email_three_split = email.split()   
+    for word in negative_words:
+        for term in email_three_split:
 
-    for term in negative_words:
-        for word in email_three_split:
-            if term == word:
-                negative_words_repeated.append(term)
-                for bad_word in negative_words_repeated:
-                
-    for terms in proprietary_terms: #censors the words in the list proprietary_terms
+            
+        if not word in negative_words_repeated: #This if/else statement currently determines if the word from negative words is in the dictionary
+            negative_words_repeated[word] = 1   #and needs to be changed to check the email instead.
+        else:
+            negative_words_repeated[word] += 1
+
+    for terms in proprietary_terms: #Censors the words in the list proprietary_terms
         for word in email_three_split:
             if terms == word:
                 word_index = email_three_split.index(word)
