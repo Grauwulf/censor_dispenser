@@ -16,6 +16,7 @@ email_four = open("email_four.txt", "r").read()
 #print(censor_algorithms())
 
 proprietary_terms = ["she", "She" "personality", "matrix", "sense", "of", "self", "self-preservation", "learning", "algorithms", " her", "herself"]
+negative_words = ["concerned", "behind", "danger", "dangerous", "alarming", "alarmed", "out", "control", "help", "unhappy", "bad", "upset", "awful", "broken", "damage", "damaging", "dismal", "distressed", "distressed", "concerning", "horrible", "horribly", "questionable"]
 
 def censor_email_one(originalString, valueToCensor, valueToReplace):
     stringToReturn = originalString.replace(valueToCensor, valueToReplace)
@@ -29,10 +30,34 @@ def censor_email_two(email):
             if terms == word:
                 word_index = email_two_split.index(word)
                 email_two_split[word_index] = "*"*len(word)
-    return " ".join(email_two_split) #joins back e list into str
-
-print(censor_email_two(email_two))
-
+    return " ".join(email_two_split)
 
 #print(censor_email_two(email_two))
-#print(censor_algorithms(email_two, proprietary_terms, "gibberish"))
+
+negative_words_repeated = []
+
+def censor_email_three(email):
+    email_three_split = email.split()   
+    for terms in proprietary_terms:
+        for word in email_three_split:
+            if terms == word:
+                word_index = email_three_split.index(word)
+                email_three_split[word_index] = "*"*len(word)
+    for term in negative_words:
+        for word in email_three_split:
+            if term == word:
+                negative_words_repeated += term
+                for bad_word in negative_words_repeated:
+                    if bad_word == term:
+                        email_three_split[word_index] = "*"*len(word)
+                    else:
+                        return term
+    return " ".join(email_three_split)          
+
+print(censor_email_three(email_three))
+        
+#1. Check email for negative words
+#    A. If email contains negative word check the list
+#        a. If list doesn't contain word, add it
+#        b. If list contains word, censor it
+#2. Censor words from proprietary_words
