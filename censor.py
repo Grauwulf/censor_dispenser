@@ -45,11 +45,7 @@ def censor_email_three(email):
             if term == word:
                 negative_words_repeated.append(term)
                 for bad_word in negative_words_repeated:
-                    if bad_word == term:
-                        email_three_split[word_index] = "*"*len(word)
-                    else:
-                       return term
-
+                
     for terms in proprietary_terms: #censors the words in the list proprietary_terms
         for word in email_three_split:
             if terms == word:
