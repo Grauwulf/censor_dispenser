@@ -16,7 +16,7 @@ email_four = open("email_four.txt", "r").read()
 #print(censor_algorithms())
 
 proprietary_terms = ["she", "She", "personality", "matrix", "sense", "of", "self", "self-preservation", "learning", "algorithms", " her", "herself"]
-negative_words = ["concerned", "behind", "danger", "dangerous", "alarming", "alarmed", "out", "control", "help", "unhappy", "bad", "upset", "awful", "broken", "damage", "damaging", "dismal", "distressed", "distressed", "concerning", "horrible", "horribly", "questionable"]
+negative_words = ["concerned", "concerning", "behind", "danger", "dangerous", "alarming", "alarmed", "out", "control", "control." "help", "unhappy", "bad", "upset", "awful", "broken", "damage", "damaging", "dismal", "distressed", "distressed", "concerning", "horrible", "horribly", "questionable"]
 
 def censor_email_one(originalString, valueToCensor, valueToReplace):
     stringToReturn = originalString.replace(valueToCensor, valueToReplace)
@@ -34,27 +34,26 @@ def censor_email_two(email):
 
 #print(censor_email_two(email_two))
 
-negative_words_repeated = []
-
 def censor_email_three(email):
-    negative_words_repeated = []
+    negative_words_repeated = {}
     email_three_split = email.split()   
-
-    for term in negative_words:
-        for word in email_three_split:
-            if term == word:
-                negative_words_repeated.append(term)
-                for bad_word in negative_words_repeated:
-                    if bad_word == term:
-                        email_three_split[word_index] = "*"*len(word)
-                    else:
-                       return term
-
-    for terms in proprietary_terms: #censors the words in the list proprietary_terms
+    for word in negative_words:
+        for term in email_three_split:
+            if word == term:
+                if not word in negative_words_repeated: #This if/else statement currently determines if the word from negative words is in the email
+                    negative_words_repeated[word] = 1   #If it isn't, it adds it if it is 
+                elif word in negative_words_repeated:
+                    negative_words_repeated[word] += 1
+                else:
+                    return word
+    for word in negative_words_repeated:
+        if negative_words_repeated[word] >= 2:
+            proprietary_terms.append(word)
+    for terms in proprietary_terms: #Censors the words in the list proprietary_terms
         for word in email_three_split:
             if terms == word:
                 word_index = email_three_split.index(word)
                 email_three_split[word_index] = "*"*len(word)
-    return " ".join(email_three_split)         
+    return " ".join(email_three_split) 
 
 print(censor_email_three(email_three))
