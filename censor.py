@@ -56,4 +56,21 @@ def censor_email_three(email):
                 email_three_split[word_index] = "*"*len(word)
     return " ".join(email_three_split) 
 
-print(censor_email_three(email_three))
+def censor_email_four(email):
+    negative_and_proprietary = []
+    email_four_split = email.split()   
+    for word in negative_words:
+        negative_and_proprietary.append(word)
+    for word in proprietary_terms:
+        negative_and_proprietary.append(word)
+    
+    for terms in negative_and_proprietary: #Censors the words in the list negative_and_proprietary
+        for word in email_four_split:
+            if terms == word:
+                word_index = email_four_split.index(word)
+                email_four_split[(word_index)-1] = "*"*len(word)
+                email_four_split[word_index] = "*"*len(word)
+                email_four_split[(word_index)+1] = "*"*len(word)
+    return " ".join(email_four_split) 
+
+print(censor_email_four(email_four))
